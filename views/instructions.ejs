@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Instructions</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="bg-gray-100">
+
+  <%- include('partials/navbar', { page: '/test' }) %>
+  <div class="flex" style="height: calc(100vh - 5rem);">
+  <div class="container mx-auto p-8">
+    <div class="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto">
+      <h1 class="text-3xl font-bold mb-4">Test Instructions</h1>
+      
+      <% if (test.isCertification && progress < contentLength) { %>
+        <div class="bg-red-100 text-red-800 p-4 rounded mb-4">
+          <p>Complete the course to take the test.</p>
+        </div>
+        <a href="/content" class="bg-blue-500 text-white px-4 py-2 rounded">Proceed to Course</a>
+      <% } else { %>
+        <div class="bg-gray-100 p-6 rounded mb-6">
+          <h2 class="text-xl font-semibold">Instructions:</h2>
+          <ul class="list-disc pl-6">
+            <li>Unlimited attempts.</li>
+            <li>No time limit.</li>
+            <li>All questions are compulsory.</li>
+            <li>Each question has only one correct answer.</li>
+            <li>No negative marking.</li>
+            <li><%= test.mcqs.length %> questions in total.</li>
+            <li>Minimum <%= test.passingPercentage %>% required to pass.</li>
+          </ul>
+        </div>
+        <a href="/test/<%= test._id %>/start" class="bg-green-500 text-white px-4 py-2 rounded">Start Test</a>
+      <% } %>
+    </div>
+  </div>
+  </div>
+
+</body>
+</html>

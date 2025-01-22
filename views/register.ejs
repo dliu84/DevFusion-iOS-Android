@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevFusion: IOS & Android</title>
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+
+<body class="min-h-screen bg-gray-100" >
+
+  <%- include('partials/navbar', { page: '/register' }) %>
+  
+  <!-- Main container -->
+  <div class="flex items-center justify-center min-h-screen">
+    <!-- Card container -->
+    <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
+      <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">Sign up</h2>
+
+      <% if (!successMessage) { %>
+      <form method="post" action="/register " class="space-y-4">
+        
+        <!-- Full Name -->
+        <div class="flex flex-col">
+          <label for="name" class="text-sm font-semibold text-gray-600">Full Name</label>
+          <input type="text" name="name" id="name" placeholder="Enter Your Full Name" required
+            class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+
+        <!-- Email -->
+        <div class="flex flex-col">
+          <label for="email" class="text-sm font-semibold text-gray-600">Email Address</label>
+          <input type="email" name="email" id="email" placeholder="Enter Your Email Address" value="<%= email ? email : '' %>" required
+            class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+
+        <!-- Password -->
+        <div class="flex flex-col">
+          <label for="password" class="text-sm font-semibold text-gray-600">Password</label>
+          <input type="password" name="password" id="password" placeholder="At least 8 characters" required
+            class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+
+        <!-- Terms Checkbox -->
+        <div class="flex items-center">
+          <input type="checkbox" id="terms" name="terms" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" />
+          <label for="terms" class="ml-2 text-sm text-gray-700">
+            I agree with 
+            <a href="#" id="terms-link" class="text-indigo-600 hover:underline">Terms</a> and 
+            <a href="#" id="privacy-link" class="text-indigo-600 hover:underline">Privacy</a>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit"
+          class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          Sign up
+        </button>
+      </form>
+
+      <!-- Error Message -->
+      <% if (errorMessage) { %>
+      <div class="mt-4 text-red-600 text-center">
+        <span><%= errorMessage %></span>
+      </div>
+      <% } %>
+      <% } else { %>
+      <!-- Success Message -->
+      <div class="bg-green-100 text-green-700 p-4 rounded-lg mt-6 text-center">
+        <span><%= successMessage %></span>
+      </div>
+      <a href="/Login" class="mt-6 inline-block w-full text-center bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">
+        Proceed to Log in
+      </a>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Terms & Privacy Modal -->
+  <div id="termsModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg">
+      <span class="close cursor-pointer text-red-500 float-right" id="termsClose">&times;</span>
+      <h2 class="text-xl font-semibold mb-4">Terms and Conditions</h2>
+      <p class="text-gray-600 text-justify">
+        By accessing and using our website, you agree to comply with these terms and conditions. All content, including text, 
+        graphics, and images, is for informational purposes only and is the property of our company...
+      </p>
+    </div>
+  </div>
+
+  <div id="privacyModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg">
+      <span class="close cursor-pointer text-red-500 float-right" id="privacyClose">&times;</span>
+      <h2 class="text-xl font-semibold mb-4">Privacy Policy</h2>
+      <p class="text-gray-600 text-justify">
+        Your privacy is important to us. We are committed to protecting your personal information...
+      </p>
+    </div>
+  </div>
+
+  <script>
+    var termsModal = document.getElementById("termsModal");
+    var privacyModal = document.getElementById("privacyModal");
+    var termsLink = document.getElementById("terms-link");
+    var privacyLink = document.getElementById("privacy-link");
+    var termsClose = document.getElementById("termsClose");
+    var privacyClose = document.getElementById("privacyClose");
+
+    termsLink.onclick = function () {
+      termsModal.style.display = "flex";
+    };
+
+    privacyLink.onclick = function () {
+      privacyModal.style.display = "flex";
+    };
+
+    termsClose.onclick = function () {
+      termsModal.style.display = "none";
+    };
+
+    privacyClose.onclick = function () {
+      privacyModal.style.display = "none";
+    };
+
+    window.onclick = function (event) {
+      if (event.target == termsModal) {
+        termsModal.style.display = "none";
+      }
+      if (event.target == privacyModal) {
+        privacyModal.style.display = "none";
+      }
+    };
+  </script>
+</body>
+
+</html>

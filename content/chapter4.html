@@ -1,0 +1,69 @@
+<div class="content-page">
+  <p class="track_title">Class 4 - Introduction to Object Oriented Programming</p>
+  <hr>
+
+  <div class="track_body">
+      <p><strong>Understanding Object Oriented Programming</strong></p>
+      <p>
+          Object-Oriented Programming (OOP) is a programming paradigm that provides a means of structuring programs so that properties and behaviors are bundled into individual objects.
+      </p>
+      <p>
+          In OOP, each object is an instance of a class. The class defines the properties (often referred to as attributes or fields) and methods (actions or functions) common to all objects of that type.
+      </p>
+      <p>The core principles of OOP include:</p>
+      <ul>
+          <li><strong>Encapsulation:</strong> The implementation and state of each object are privately held inside a defined boundary, or class.</li>
+          <li><strong>Inheritance:</strong> Classes can inherit common state and behavior from other classes.</li>
+          <li><strong>Polymorphism:</strong> A principle that allows one interface to represent a general class of actions.</li>
+          <li><strong>Abstraction:</strong> The principle of abstraction enables a programmer to hide all but the relevant data about an object to reduce complexity and increase efficiency.</li>
+      </ul>
+
+      <p><strong>Classes, Structs, and Enums in Swift</strong></p>
+      <p><strong>Classes:</strong> Classes in Swift are general-purpose, flexible constructs that become the building blocks of your code. They include properties (variables and constants) and methods (functions).</p>
+
+      <div class="highlight">
+          <p>Example:</p>
+          <pre><code>
+class Dog {
+  var name: String
+  var breed: String
+
+  init(name: String, breed: String) {
+      self.name = name
+      self.breed = breed
+  }
+}
+          </code></pre>
+      </div>
+
+      <p><strong>Structs:</strong> In Swift, structs are very similar to classes. They can have properties and methods just like classes. However, they are value types whereas classes are reference types. Also, unlike classes, they don't support inheritance.</p>
+
+      <div class="highlight">
+          <p>Example:</p>
+          <pre><code>
+struct Point {
+  var x: Int
+  var y: Int
+}
+          </code></pre>
+      </div>
+
+      <p><strong>Enums:</strong> Enumerations, or more commonly, enums, are a way of defining a type in Swift with a limited set of possible states or values. They are a versatile way to create a group of related values that can be used in your code.</p>
+
+      <div class="highlight">
+          <p>Example:</p>
+          <pre><code>
+enum Direction {
+  case north
+  case south
+  case east
+  case west
+}
+          </code></pre>
+      </div>
+
+      <p>
+          In the upcoming lessons, we will dive deeper into these concepts, exploring topics like class and struct methods, inheritance, and polymorphism in Swift.
+      </p>
+  </div>
+</div>

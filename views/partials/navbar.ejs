@@ -1,0 +1,77 @@
+<!-- Navbar -->
+<div class="navbar bg-base-100 shadow-md">
+  <div class="flex-1">
+    <a href="/" class="btn btn-ghost normal-case text-2xl font-bold text-primary">DevFusion</a>
+  </div>
+  
+  <!-- Mobile dropdown -->
+  <div class="dropdown">
+    <label tabindex="0" class="btn btn-ghost lg:hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+      </svg>
+    </label>
+    <ul tabindex="0" class="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 right-0">
+      <li><a class="<%= (page == '/') ? 'active' : '' %>" href="/">Home</a></li>
+      
+      <% if (session.user) { %>
+        <li><a class="<%= (page == '/content') ? 'active' : '' %>" href="/content">Content</a></li>
+        <li><a class="<%= (page == '/test') ? 'active' : '' %>" href="/test">Test</a></li>
+        <li><a class="<%= (page == '/certification') ? 'active' : '' %>" href="/certification">Certification</a></li>
+        <li><a class="<%= (page == '/feedback') ? 'active' : '' %>" href="/feedback">Feedback</a></li>
+        <!-- Check if the user is an admin -->
+        <% if (session.user.isAdmin) { %>
+          <li><a class="<%= (page == '/admin') ? 'active' : '' %>" href="/admin">Manage Content</a></li>
+          <li><a class="<%= (page == '/admin/test') ? 'active' : '' %>" href="/admin/test">Manage Test</a></li>
+        <% } %>
+        
+        <li>
+          <details>
+            <summary>
+              <img src="<%= session.user.picture %>" alt="<%= session.user.name %>" class="w-8 h-8 rounded-full inline-block mr-2" />
+              <%= session.user.name %>
+            </summary>
+            <ul class="p-2 right-0">
+              <li><a class="<%= (page == '/profile') ? 'active' : '' %>" href="/profile">Profile</a></li>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+          </details>
+        </li>
+      <% } else { %>
+        <li><a class="<%= (page == '/login') ? 'active' : '' %>" href="/login">Login</a></li>
+      <% } %>
+    </ul>
+  </div>
+  
+  <!-- Desktop menu -->
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1">
+      <li><a class="<%= (page == '/') ? 'active' : '' %>" href="/">Home</a></li>
+      
+      <% if (session.user) { %>
+        <li><a class="<%= (page == '/content') ? 'active' : '' %>" href="/content">Content</a></li>
+        <li><a class="<%= (page == '/test') ? 'active' : '' %>" href="/test">Test</a></li>
+        <li><a class="<%= (page == '/certification') ? 'active' : '' %>" href="/certification">Certification</a></li>
+        <li><a class="<%= (page == '/feedback') ? 'active' : '' %>" href="/feedback">Feedback</a></li>
+        <% if (session.user.isAdmin) { %>
+          <li><a class="<%= (page == '/admin') ? 'active' : '' %>" href="/admin">Manage Content</a></li>
+          <li><a class="<%= (page == '/admin/test') ? 'active' : '' %>" href="/admin/test">Manage Test</a></li>
+        <% } %>
+        <li>
+          <details>
+            <summary>
+              <img src="<%= session.user.picture %>" alt="<%= session.user.name %>" class="w-8 h-8 rounded-full inline-block mr-2" />
+              <%= session.user.name %>
+            </summary>
+            <ul class="p-2 right-0">
+              <li><a class="<%= (page == '/profile') ? 'active' : '' %>" href="/profile">Profile</a></li>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+          </details>
+        </li>
+      <% } else { %>
+        <li><a class="<%= (page == '/login') ? 'active' : '' %>" href="/login">Login</a></li>
+      <% } %>
+    </ul>
+  </div>
+</div>

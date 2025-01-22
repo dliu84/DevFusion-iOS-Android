@@ -1,0 +1,49 @@
+<div class="content-page">
+  <p class="track_title">Class 8 - Swift Advanced Concepts</p>
+  <hr>
+
+  <div class="track_body">
+      <p><strong>Introduction to Optionals in Swift</strong></p>
+      <p>
+          Optionals are a core aspect of Swift. They are used to indicate that a variable may hold either a value or no value, which can be particularly useful when you're dealing with potential "null" situations.
+      </p>
+
+      <p>Here's a brief explanation of how to use Optionals:</p>
+      <ol>
+          <li>
+              <strong>Declaring Optionals:</strong>
+              <p>An optional variable is declared with a <code>?</code> at the end of the variable type.</p>
+              <pre>
+var name: String? 
+              </pre>
+              <p>In this case, <code>name</code> is an optional <code>String</code>. It can hold a string, or it can hold no value at all (<code>nil</code>).</p>
+          </li>
+          <li>
+              <strong>Unwrapping Optionals:</strong>
+              <p>To access an optional's value (if it exists), you need to unwrap it. This is done using either forced unwrapping (<code>!</code>) or optional binding (<code>if let</code> or <code>guard let</code>).</p>
+              <pre>
+// Forced Unwrapping
+var name: String? = "John"
+print(name!)  // "John"
+
+// Optional Binding
+if let unwrappedName = name {
+  print(unwrappedName)  // "John"
+}
+              </pre>
+              <p>Note that forced unwrapping is risky if the optional is <code>nil</code>, as it leads to a runtime error. Therefore, it's usually better to use optional binding, which is safe.</p>
+          </li>
+      </ol>
+
+      <p><strong>Course Recap and Preview of Full Course Content</strong></p>
+      <p>
+          This course was an introduction to iOS development. We started from the basics of Swift and moved to advanced Swift topics like optionals. We also covered key concepts in iOS development, such as user interfaces, data persistence, and the Xcode environment.
+      </p>
+      <p>
+          After mastering these fundamentals, you'll be ready to move onto more advanced topics in iOS development. These can include topics like working with APIs, using databases with Core Data or Realm, implementing user authentication, unit testing, applying design patterns like MVC and MVVM, advanced UI with SwiftUI, and even app distribution on the App Store.
+      </p>
+      <p>
+          For each of these advanced topics, we have a dedicated course that goes in depth to make sure you become proficient in it. We hope to see you in those courses and wish you the best in your journey as an iOS developer!
+      </p>
+  </div>
+</div>

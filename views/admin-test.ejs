@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Management</title>
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+
+<body tabindex="-1" class="bg-gray-100 text-gray-900 font-sans">
+
+  <!-- Navbar -->
+  <%- include('partials/navbar', {page: '/admin/test'}) %>
+
+<div class="container mx-auto p-4 my-8 p-6 bg-white shadow-lg rounded-lg">
+  <h1 class="text-4xl font-extrabold text-gray-800 mb-8 text-center">Admin Portal</h1>
+
+  <!-- Test List -->
+  <div class="mb-10">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Test Sets</h2>
+    <ul>
+      <% testSets.forEach((testSet, index) => { %>
+        <li class="text-lg text-gray-800">
+          <span class="font-semibold"> <%= testSet.title %> - <%= testSet.isCertification ? "Certification" : "Mock" %> </span>
+          <button onclick="editTest('<%= testSet._id %>')" class="ml-4 bg-yellow-500 text-white px-4 py-1 rounded shadow hover:bg-yellow-600 transition duration-300">
+            Edit
+          </button>
+          <% if (!testSet.isCertification) { %>
+          <button onclick="deleteTest('<%= testSet._id %>')" class="ml-4 bg-blue-500 text-white px-4 py-1 rounded shadow hover:bg-yellow-600 transition duration-300">
+            Delete
+          </button>
+          <% } %>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+
+  <!-- Add New Test Button -->
+  <button id="add-new-test" class="bg-green-500 text-white px-6 py-2 rounded shadow-lg hover:bg-green-600 transition duration-300">
+    + Add New Test
+  </button>
+
+  <!-- Add/Edit Test Form -->
+  <div id="test-form" class="hidden mt-8 bg-gray-50 p-6 rounded-lg shadow-lg relative">
+    <button id="close-form" class="absolute top-2 right-2 text-gray-600 hover:text-gray-900" aria-label="Close">
+      &times;
+    </button>
+    <h2 class="text-2xl font-semibold text-gray-700 mb-6" id="form-topic">Add a New Test Set</h2>
+
+  <form action="/admin/test/add" method="POST" id="testForm" class="space-y-4">
+    <input type="hidden" name="testId" id="testId">
+    <div class="mb-4">
+      <label class="block text-gray-700">Test Title</label>
+      <input name="title" class="border rounded p-2 w-full" required>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-gray-700">Certification Test?</label>
+      <input name="isCertification" type="checkbox">
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-gray-700">Passing Percentage</label>
+      <input name="passingPercentage" type="number" class="border rounded p-2 w-full" required>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-gray-700">Add MCQs</label>
+
+      <!-- MCQ section -->
+      <div id="mcqs" class="space-y-4">
+        <div class="mcq-group border p-4 rounded">
+          <label class="block">Question 1</label>
+          <input name="mcqs[0][question]" class="border rounded p-2 w-full" required>
+
+          <label class="block mt-2">Options</label>
+          <input name="mcqs[0][options][a]" class="border rounded p-2 w-full" placeholder="Option A" required>
+          <input name="mcqs[0][options][b]" class="border rounded p-2 w-full mt-1" placeholder="Option B" required>
+          <input name="mcqs[0][options][c]" class="border rounded p-2 w-full mt-1" placeholder="Option C" required>
+          <input name="mcqs[0][options][d]" class="border rounded p-2 w-full mt-1" placeholder="Option D" required>
+
+          <label class="block mt-2">Correct Answer</label>
+          <select name="mcqs[0][correctAnswer]" class="border rounded p-2 w-full">
+            <option value="a">A</option>
+            <option value="b">B</option>
+            <option value="c">C</option>
+            <option value="d">D</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Button to add more MCQs -->
+      <button type="button" onclick="addMCQ()" class="bg-green-500 text-white mt-4 px-4 py-2 rounded">Add Another MCQ</button>
+    </div>
+
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save Test Set</button>
+  </form>
+  </div>
+</div>
+
+<!-- Confirmation Prompt -->
+<div id="delete-confirmation" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Are you sure you want to delete this test?</h2>
+    <div class="flex justify-end">
+      <button id="cancel-delete" class="bg-yellow-500 text-white px-4 py-1 rounded shadow hover:bg-yellow-600 transition duration-300">Cancel</button>
+      <button id="confirm-delete" class="ml-4 bg-yellow-500 text-white px-4 py-1 rounded shadow hover:bg-yellow-600 transition duration-300">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toggle form for adding or editing content
+  document.getElementById('add-new-test').addEventListener('click', function() {
+    document.getElementById('test-form').classList.toggle('hidden');
+    document.getElementById('form-topic').innerText = 'Add a New Test Set';
+    document.getElementById('testForm').action = '/admin/test/add';
+    document.getElementById('testId').value = '';
+    document.getElementById('title').value = '';  
+  });
+
+  let mcqCount = 1;
+  function addMCQ() {
+    const mcqGroup = document.createElement('div');
+    mcqGroup.classList.add('mcq-group', 'border', 'p-4', 'rounded', 'mt-4');
+    mcqGroup.innerHTML = `
+      <label class="block">Question ${mcqCount + 1}</label>
+      <input name="mcqs[${mcqCount}][question]" class="border rounded p-2 w-full" required>
+      
+      <label class="block mt-2">Options</label>
+      <input name="mcqs[${mcqCount}][options][a]" class="border rounded p-2 w-full" placeholder="Option A" required>
+      <input name="mcqs[${mcqCount}][options][b]" class="border rounded p-2 w-full mt-1" placeholder="Option B" required>
+      <input name="mcqs[${mcqCount}][options][c]" class="border rounded p-2 w-full mt-1" placeholder="Option C" required>
+      <input name="mcqs[${mcqCount}][options][d]" class="border rounded p-2 w-full mt-1" placeholder="Option D" required>
+
+      <label class="block mt-2">Correct Answer</label>
+      <select name="mcqs[${mcqCount}][correctAnswer]" class="border rounded p-2 w-full">
+        <option value="a">A</option>
+        <option value="b">B</option>
+        <option value="c">C</option>
+        <option value="d">D</option>
+      </select>
+    `;
+    document.getElementById('mcqs').appendChild(mcqGroup);
+    mcqCount++;
+  }
+
+  // Pre-fill form for editing test
+  async function editTest(id) {
+    try {
+      const response = await fetch(`/admin/test/${id}/edit`);
+      const data = await response.json();
+
+      document.getElementById('test-form').classList.remove('hidden');
+      document.getElementById('form-topic').innerText = 'Edit Test Set';
+      document.getElementById('testForm').action = `/admin/test/${id}/update`;
+      document.getElementById('testId').value = data._id;
+      document.querySelector('input[name="title"]').value = data.title;
+      document.querySelector('input[name="passingPercentage"]').value = data.passingPercentage;
+      document.querySelector('input[name="isCertification"]').checked = data.isCertification;
+
+      // Clear existing MCQ fields
+      document.getElementById('mcqs').innerHTML = '';
+
+      // Populate the MCQs
+      mcqCount = 0;
+      data.mcqs.forEach((mcq, index) => {
+        addMCQ();
+        document.querySelector(`input[name="mcqs[${index}][question]"]`).value = mcq.question;
+        document.querySelector(`input[name="mcqs[${index}][options][a]"]`).value = mcq.options.a;
+        document.querySelector(`input[name="mcqs[${index}][options][b]"]`).value = mcq.options.b;
+        document.querySelector(`input[name="mcqs[${index}][options][c]"]`).value = mcq.options.c;
+        document.querySelector(`input[name="mcqs[${index}][options][d]"]`).value = mcq.options.d;
+        document.querySelector(`select[name="mcqs[${index}][correctAnswer]"]`).value = mcq.correctAnswer;
+      });
+    } catch (err) {
+      console.error("Error fetching test data", err);
+    }
+  }
+
+  // Close the form
+  document.getElementById('close-form').addEventListener('click', function() {
+    document.getElementById('test-form').classList.add('hidden');
+  });
+
+  // Delete confirmation logic
+  let deleteContentId = '';
+
+function deleteTest(id) {
+  deleteContentId = id;
+  document.getElementById('delete-confirmation').classList.remove('hidden');
+}
+
+document.getElementById('cancel-delete').addEventListener('click', function() {
+  document.getElementById('delete-confirmation').classList.add('hidden');
+});
+
+document.getElementById('confirm-delete').addEventListener('click', function() {
+  fetch(`/admin/test/${deleteContentId}/delete`, { method: 'DELETE' })
+    .then(response => response.json())
+    .then(data => {
+      window.location.reload();
+    });
+});
+
+
+</script>
+
+</body>
+</html>

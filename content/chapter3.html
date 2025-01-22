@@ -1,0 +1,81 @@
+<div class="content-page">
+  <p class="track_title">Class 3 - Swift Fundamentals</p>
+  <hr>
+
+  <div class="track_body">
+      <p><strong>Control Flow in Swift</strong></p>
+      <p>
+          Control flow refers to the order in which the program's code executes. The control flow statements are used to repeat tasks, select different code blocks to execute, and transfer the program's control flow.
+      </p>
+      <p>In Swift, we have several control flow statements:</p>
+
+      <p><strong>1. Conditional Statements:</strong> These include <code>if</code>, <code>else if</code>, and <code>else</code> statements used to execute different code blocks based on certain conditions.</p>
+
+      <div class="highlight">
+          <p>Example:</p>
+          <pre><code>
+var temperature = 30
+if temperature < 20 {
+  print("It's cold!")
+} else if temperature > 30 {
+  print("It's hot!")
+} else {
+  print("It's pleasant!")
+}
+          </code></pre>
+      </div>
+
+      <p><strong>2. Switch Statement:</strong> The <code>switch</code> statement is a powerful tool for control flow that can be used instead of <code>if-else-if</code> chains.</p>
+
+      <div class="highlight">
+          <p>Example:</p>
+          <pre><code>
+var fruit = "apple"
+switch fruit {
+  case "banana":
+      print("I like bananas.")
+  case "apple":
+      print("Apples are tasty.")
+  default:
+      print("All fruits are delicious.")
+}
+          </code></pre>
+      </div>
+
+      <p><strong>3. Loop Statements:</strong> Loops are used to perform a set of tasks until a certain condition is met. Swift has <code>for</code>, <code>while</code>, and <code>repeat-while</code> loops.</p>
+
+      <div class="highlight">
+          <p>Example:</p>
+          <pre><code>
+for i in 1...5 {
+  print(i)
+}
+          </code></pre>
+      </div>
+
+      <p><strong>Introduction to Functions in Swift</strong></p>
+      <p>
+          Functions are self-contained blocks of code that perform a specific task. Swift’s unified function syntax is flexible and expressive.
+      </p>
+      <p>Functions in Swift are declared using the <code>func</code> keyword. For example:</p>
+
+      <div class="highlight">
+          <p>Example:</p>
+          <pre><code>
+func greet(person: String) -> String {
+  let greeting = "Hello, " + person + "!"
+  return greeting
+}
+          </code></pre>
+      </div>
+
+      <p>
+          In this example, <code>greet</code> is a function that takes a parameter <code>person</code> of type <code>String</code> and returns a <code>String</code>. To call this function, you would use <code>greet("John")</code>.
+      </p>
+      <p>
+          Functions can have multiple parameters, and they can also return multiple values using tuples. Swift also provides advanced features such as nested functions, variadic parameters, and closure expressions, which we will cover in upcoming classes.
+      </p>
+
+      <p>Stay tuned for our next lesson, where we will explore the fascinating world of Object-Oriented Programming in Swift.</p>
+  </div>
+</div>

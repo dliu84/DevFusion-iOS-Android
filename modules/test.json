@@ -1,0 +1,143 @@
+{
+    "_id":{"$oid":"671aaf496a666e9854c810d3"},
+    "title": "test 1",
+    "isCertification": true,
+    "passingPercentage": {
+        "$numberInt": "46"
+    },
+    "mcqs": [
+        {
+            "question": "Which is the valid declaration for variable?",
+            "options": {
+                "a": "var a: String = 'a'",
+                "b": "var b='a'",
+                "c": "String b='a'",
+                "d": "let c= 'b'"
+            },
+            "correctAnswer": "a",
+            "_id": {
+                "$oid": "671aa504db5cda394e02e70b"
+            }
+        },
+        {
+            "question": "Which method is called when a view controller is loaded into memory but hasn't appeared yet?",
+            "options": {
+                "a": "viewDidLoad()",
+                "b": "viewWillAppear()",
+                "c": "viewDidAppear()",
+                "d": "viewWillDisappear()"
+            },
+            "correctAnswer": "a",
+            "_id": {
+                "$oid": "671aa504db5cda394e02e70c"
+            }
+        },
+        {
+            "question": "What is used to manage the app's content in a hierarchical structure in iOS?",
+            "options": {
+                "a": "StackView",
+                "b": "Navigation Controller",
+                "c": "TableView",
+                "d": "ScrollView"
+            },
+            "correctAnswer": "a",
+            "_id": {
+                "$oid": "671aa504db5cda394e02e70d"
+            }
+        },
+        {
+            "question": "Which framework is primarily used for constructing UIs in iOS?",
+            "options": {
+                "a": "UIKit",
+                "b": "SwiftUI",
+                "c": "Foundation",
+                "d": "Core Data"
+            },
+            "correctAnswer": "a",
+            "_id": {
+                "$oid": "671aa504db5cda394e02e70e"
+            }
+        },
+        {
+            "question": "How do you handle memory management in Swift?",
+            "options": {
+                "a": "Garbage Collection",
+                "b": "Manual Retain-Release",
+                "c": "Automatic Reference Counting (ARC)",
+                "d": "Reference Delegation"
+            },
+            "correctAnswer": "a",
+            "_id": {
+                "$oid": "671aa504db5cda394e02e70f"
+            }
+        },
+        {
+            "question": "What is a closure in Swift?",
+            "options": {
+                "a": "A type of loop",
+                "b": "A self-contained block of functionality",
+                "c": "A method",
+                "d": "A data type"
+            },
+            "correctAnswer": "a",
+            "_id": {
+                "$oid": "671aa504db5cda394e02e710"
+            }
+        },
+        {
+            "question": "Which of the following allows you to perform a task asynchronously in Swift?",
+            "options": {
+                "a": "sync",
+                "b": "await",
+                "c": "Dispatch Queue",
+                "d": "NSThread"
+            },
+            "correctAnswer": "a",
+            "_id": {
+                "$oid": "671aa504db5cda394e02e711"
+            }
+        },
+        {
+            "question": "What is an optional in Swift?",
+            "options": {
+                "a": "A variable that can only have a value or nil",
+                "b": "A constant value",
+                "c": "A variable that must always have a value",
+                "d": "A type that cannot be returned from a function"
+            },
+            "correctAnswer": "a",
+            "_id": {
+                "$oid": "671aa504db5cda394e02e712"
+            }
+        },
+        {
+            "question": "In iOS development, which property is used to adjust the layout of views relative to the safe areas?",
+            "options": {
+                "a": "edgesForExtendedLayout",
+                "b": "safeAreaLayoutGuide",
+                "c": "layoutMargins",
+                "d": "adjustsScrollViewInsets"
+            },
+            "correctAnswer": "a",
+            "_id": {
+                "$oid": "671aa504db5cda394e02e713"
+            }
+        },
+        {
+            "question": "What is a protocol in Swift?",
+            "options": {
+                "a": "A blueprint of methods, properties, and other requirements that suit a particular task or piece of functionality",
+                "b": "A type of loop",
+                "c": "A method for defining classes and structs",
+                "d": "A built-in data type"
+            },
+            "correctAnswer": "a",
+            "_id": {
+                "$oid": "671aa504db5cda394e02e714"
+            }
+        }
+    ],
+    "__v": {
+        "$numberInt": "5"
+    }
+}

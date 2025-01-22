@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Tests</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="bg-gray-100">
+
+  <%- include('partials/navbar', { page: '/tests' }) %>
+  <div class="flex" style="height: calc(100vh - 5rem);">
+  <div class="container mx-auto p-8">
+    <div class="bg-white p-6 rounded-lg shadow-md max-w-3xl mx-auto">
+      <h1 class="text-3xl font-bold mb-6">Available Tests</h1>
+
+      <% if (tests.length === 0) { %>
+        <p class="text-lg text-gray-600">No tests are available at the moment.</p>
+      <% } else { %>
+        <ul class="divide-y divide-gray-300">
+          <% tests.forEach(test => { %>
+            <li class="py-4 flex justify-between items-center">
+              <div>
+                <h2 class="text-xl font-semibold"><%= test.title %></h2>
+                <p class="text-sm text-gray-500">
+                  Passing Percentage: <%= test.passingPercentage %>% 
+                </p>
+                <% if (test.isCertification) { %>
+                  <p class="text-sm text-gray-500">
+                    (Certification Test)
+                  </p>
+                <% } %>
+              </div>
+              <a 
+                href="/test/<%= test._id %>/instructions" 
+                class="bg-blue-500 text-white px-4 py-2 rounded">
+                Take Test
+              </a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+
+      <a href="/" class="mt-4 inline-block bg-gray-500 text-white px-4 py-2 rounded">
+        Back to Home
+      </a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevFusion: IOS & Android</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body tabindex="-1" class="bg-gray-100">
+
+  <!-- Navbar -->
+  <%- include('partials/navbar', {page: '/content'}) %>
+
+  <div class="flex flex-col md:flex-row" style="min-height: calc(100vh - 5rem);">
+    <!-- Sidebar -->
+    <div class="w-full md:w-1/4 bg-white border border-gray-300 shadow-lg p-4">
+      <h2 class="text-xl font-bold mb-4">Topics</h2>
+      <ul>
+        <% content.forEach(topic => { %>
+          <li class="mb-2">
+            <a 
+              href="/content?order=<%= topic.order %>" 
+              class="block p-2 rounded hover:bg-gray-200 <%= selectedTopic.order === topic.order ? 'bg-gray-300' : '' %>">
+              <%= topic.topic %>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex flex-col w-full md:w-3/4 p-4 md:p-6" style="min-height: calc(100vh - 5rem);">
+      <div class="flex justify-between items-center mb-4 md:mb-6">
+        <!-- Navigation Buttons -->
+        <% if (prevOrder) { %>
+            <a 
+                href="/content?order=<%= prevOrder %>" 
+                class="bg-blue-500 text-white px-4 py-2 rounded">
+                Previous
+            </a>
+        <% } else { %>
+            <span class="bg-gray-400 text-white px-4 py-2 rounded pointer-events-none">
+                Previous
+            </span>
+        <% } %>
+    
+        <% if (nextOrder) { %>
+            <a 
+                href="/content?order=<%= nextOrder %>" 
+                class="bg-blue-500 text-white px-4 py-2 rounded">
+                Next
+            </a>
+        <% } else { %>
+            <a 
+                href="/" 
+                class="bg-green-500 text-white px-4 py-2 rounded">
+                Complete
+            </a>
+        <% } %>
+    </div>
+
+      <!-- Content Body -->
+      <div class="flex-1 overflow-y-auto prose max-w-full bg-white border border-gray-300 rounded-lg p-4">
+        <%- selectedTopic.body %>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

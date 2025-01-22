@@ -1,0 +1,49 @@
+<div class="content-page">
+  <p class="track_title">Class 6 - Working with UI Elements</p>
+  <hr>
+
+  <div class="track_body">
+      <p><strong>Introduction to UI Elements: Labels, Buttons, Text Fields</strong></p>
+      <p>
+          User Interface (UI) elements are the parts we use to build apps or websites. These could be input controls, navigational components, informational components, and containers.
+      </p>
+      <p>In iOS, some of the most frequently used UI elements are:</p>
+      <ol>
+          <li>
+              <strong>Labels (UILabel):</strong> A label is a static text field which can be used to display a single line or multiple lines of text. Labels do not allow user interaction.
+          </li>
+          <li>
+              <strong>Buttons (UIButton):</strong> Buttons are fundamental UI elements in any graphical user interface. They provide a simple way for users to interact with the interface. In response to a tap, buttons can trigger a variety of actions.
+          </li>
+          <li>
+              <strong>Text Fields (UITextField):</strong> Text fields allow users to input text data with the keyboard. They are often used to gather small amounts of text, such as an email address, password, etc.
+          </li>
+      </ol>
+
+      <p><strong>Building a Basic UI for an iOS App</strong></p>
+      <p>In this section, we'll create a basic UI containing a label, a text field, and a button. When the button is pressed, we'll update the text of the label to reflect what's in the text field.</p>
+      <ol>
+          <li>
+              <strong>Creating UI Elements:</strong> Open your project and navigate to the <code>Main.storyboard</code>. Drag a label, a text field, and a button from the Object Library onto your view controller.
+          </li>
+          <li>
+              <strong>Connecting UI Elements to Code:</strong> After designing the layout, we need to connect these UI elements to our code. To do this, open <code>Main.storyboard</code> and <code>ViewController.swift</code> side by side. Control-drag from each UI element to the <code>ViewController.swift</code> file and create a new outlet for each one.
+          </li>
+          <li>
+              <strong>Writing the Interaction Logic:</strong> The next step is to create an action that gets triggered when the button is tapped. Control-drag from the button in the storyboard to the <code>ViewController.swift</code> file and create an action this time. Inside this action, update the text property of the label to reflect the text field's contents.
+              <p><strong>Example Code:</strong></p>
+              <pre>
+@IBOutlet weak var myLabel: UILabel!
+@IBOutlet weak var myTextField: UITextField!
+
+@IBAction func myButtonPressed(_ sender: UIButton) {
+  myLabel.text = myTextField.text
+}
+              </pre>
+          </li>
+          <li>
+              <strong>Run your app:</strong> Select the appropriate simulator and then click the "Play" button. Now when you enter some text into the text field and press the button, the label's text should update.
+          </li>
+      </ol>
+  </div>
+</div>

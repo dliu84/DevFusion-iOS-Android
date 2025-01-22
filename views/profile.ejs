@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 text-gray-900 font-sans">
+
+  <!-- Navbar -->
+  <%- include('partials/navbar', { page: '/profile' }) %>
+
+  <div class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
+    <h1 class="text-4xl font-extrabold text-gray-800 mb-6 text-center">User Profile</h1>
+
+    <div class="flex justify-center mb-6">
+      <img src="<%= profile.picture %>" alt="Profile Picture" class="rounded-full w-32 h-32 border-2 border-gray-300">
+    </div>
+
+    <form method="POST" action="/profile/update" class="space-y-4">
+      <div>
+        <label for="name" class="block text-lg font-medium text-gray-700">Name</label>
+        <input type="text" id="name" name="name" class="border border-gray-300 p-3 w-full rounded-lg shadow-sm" value="<%= profile.name %>" required>
+      </div>
+
+      <div>
+        <label for="email" class="block text-lg font-medium text-gray-700 ">Email</label>
+        <input type="email" id="email" name="email" class="border bg-gray-100 border-gray-300 p-3 w-full rounded-lg shadow-sm" value="<%= profile.email %>" readonly>
+      </div>
+
+      <div>
+        <label for="nickname" class="block text-lg font-medium text-gray-700">Nickname</label>
+        <input type="text" id="nickname" name="nickname" class="border border-gray-300 p-3 w-full rounded-lg shadow-sm" value="<%= profile.nickname %>">
+      </div>
+
+      <div>
+        <label for="picture" class="block text-lg font-medium text-gray-700">Profile Picture URI</label>
+        <input type="url" id="picture" name="picture" class="border border-gray-300 p-3 w-full rounded-lg shadow-sm" value="<%= profile.picture %>" oninput="previewImage()">
+        <img id="preview" class="mt-4 rounded-full w-32 h-32 border-2 border-gray-300 hidden">
+        <p id="error-message" class="text-red-500 hidden">Invalid or inaccessible image URL.</p>
+      </div>
+
+      <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-600 transition duration-300">Update Profile</button>
+    </form>
+
+    <!-- Progress Section -->
+    <div class="mt-10">
+      <h2 class="text-2xl font-semibold text-center mb-4">Your Progress</h2>
+
+      <!-- Progress Bar -->
+      <div class="w-full bg-gray-300 rounded-full h-6">
+        <div class="bg-green-500 h-6 rounded-full" style="width: <%= totalContent ? (progress / totalContent) * 100 : 0 %>%;">
+        </div>
+      </div>
+
+      <p class="mt-2 text-center">
+        Completed <%= progress %> out of <%= totalContent %> tasks.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+
+    function previewImage() {
+      const pictureInput = document.getElementById('picture').value;
+      const preview = document.getElementById('preview');
+
+      if (pictureInput) {
+        preview.src = pictureInput;
+        preview.classList.remove('hidden');
+      } else {
+        preview.classList.add('hidden');
+      }
+    }
+  </script>
+
+</body>
+
+</html>

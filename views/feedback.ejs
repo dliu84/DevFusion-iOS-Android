@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <style>
+    .rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Navbar -->
+    <%- include('partials/navbar', {page: '/feedback'}) %>
+    <div class="flex items-center justify-center" style="height: calc(100vh - 5rem);">  
+      <div class="bg-black bg-opacity-70 text-white p-8 rounded-lg shadow-lg w-11/12 max-w-lg">
+        <h1 class="text-3xl font-bold mb-6 text-center">Feedback</h1>
+        <form id="feedbackForm" action="/Feedback" method="post" class="space-y-4">
+          <textarea
+            class="w-full bg-gray-800 text-white p-4 rounded-md resize-y border border-gray-500"
+            id="comment"
+            name="comment"
+            placeholder="Add comments..."
+            rows="4"
+            required
+          ><%= feedback ? feedback.message : '' %></textarea>
+          <div class="rate">
+            <% for(let i = 5; i >= 1; i--) { %>
+              <input type="radio" id="star<%= i %>" name="rate" value="<%= i %>" <%= feedback && feedback.rating == i ? 'checked' : '' %> />
+              <label for="star<%= i %>" title="text"><%= i %> star<%= i > 1 ? 's' : '' %></label>
+            <% } %>
+          </div>
+          <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-2 rounded-md">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+
+  <!-- JavaScript Validation -->
+  <script>
+    const form = document.getElementById('feedbackForm');
+    form.addEventListener('submit', function(event) {
+      const comment = document.getElementById('comment').value.trim();
+      const rating = document.querySelector('.rate input:checked');
+      
+      if (!comment || !rating) {
+        alert('Please provide both a comment and a rating.');
+        event.preventDefault(); // Prevent form submission if validation fails
+      }
+    });
+  </script>
+</body>
+</html>

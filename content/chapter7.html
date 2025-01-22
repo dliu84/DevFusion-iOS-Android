@@ -1,0 +1,61 @@
+<div class="content-page">
+  <p class="track_title">Class 7 - Basics of Data Persistence</p>
+  <hr>
+
+  <div class="track_body">
+      <p><strong>Introduction to Data Persistence in iOS</strong></p>
+      <p>
+          Data persistence is the mechanism of storing any type of data to disk so that the same data can be retrieved without being altered when the user opens the app next time. It's crucial for any app where you need to save the user's progress, cache data to improve performance, save user settings, or store data offline so your app can be used without a network connection.
+      </p>
+      <p>In iOS, we have several methods for data persistence, including:</p>
+      <ol>
+          <li>UserDefaults</li>
+          <li>Files</li>
+          <li>Core Data</li>
+          <li>SQLite</li>
+          <li>Keychain</li>
+      </ol>
+
+      <p><strong>Using User Defaults for Saving and Loading Data</strong></p>
+      <p>
+          <code>UserDefaults</code> is an interface to the user’s default database, where you store key-value pairs persistently across launches of your app. It's ideal for storing small pieces of data like user settings and preferences.
+      </p>
+
+      <p>Here's how to use <code>UserDefaults</code> to save and load data:</p>
+      <ol>
+          <li>
+              <strong>Saving Data:</strong>
+              <p>
+                  You can save data by calling the <code>set(_:forKey:)</code> method on the <code>UserDefaults</code> standard instance.
+              </p>
+              <pre>
+let defaults = UserDefaults.standard
+defaults.set("John", forKey: "userName")
+              </pre>
+          </li>
+          <li>
+              <strong>Loading Data:</strong>
+              <p>
+                  You can retrieve these values by calling the appropriate method on the <code>UserDefaults</code> standard instance.
+              </p>
+              <pre>
+let defaults = UserDefaults.standard
+let userName = defaults.string(forKey: "userName")
+              </pre>
+          </li>
+          <li>
+              <strong>Deleting Data:</strong>
+              <p>
+                  To remove a value from UserDefaults, you can use the <code>removeObject(forKey:)</code> method:
+              </p>
+              <pre>
+let defaults = UserDefaults.standard
+defaults.removeObject(forKey: "userName")
+              </pre>
+          </li>
+      </ol>
+      <p>
+          Please note that <code>UserDefaults</code> is not a secure way to store sensitive data, like user credentials. For that, you should use the Keychain.
+      </p>
+  </div>
+</div>

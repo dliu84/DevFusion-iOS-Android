@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Result</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="bg-gray-100">
+
+  <%- include('partials/navbar', { page: '/test' }) %>
+  <div class="flex" style="height: calc(100vh - 5rem);">
+    <div class="container mx-auto p-8">
+      <div class="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Test Result</h1>
+
+        <p class="text-lg mb-4">Your Score: <%= score %> / <%= totalQuestions %></p>
+        <p class="text-lg mb-4">Percentage: <%= passingPercentage %> %</p>
+
+        <% if (isPass) { %>
+          <div class="bg-green-100 text-green-800 p-4 rounded mb-4">
+            <p>Congratulations! You passed the test.</p>
+          </div>
+          <% if (isCertification) { %>
+            <p class="text-lg">Your certification status has been updated.</p>
+          <% } %>
+        <% } else { %>
+          <div class="bg-red-100 text-red-800 p-4 rounded mb-4">
+            <p>Unfortunately, you did not pass. Try again!</p>
+          </div>
+        <% } %>
+
+        <a href="/test" class="bg-blue-500 text-white px-4 py-2 rounded mt-4 inline-block">Back to Tests</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

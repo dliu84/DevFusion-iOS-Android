@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Test</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="bg-gray-100">
+
+    <%- include('partials/navbar', { page: '/test' }) %>
+    <div class="flex" style="height: calc(100vh - 5rem);">
+    <div class="container mx-auto p-6">
+        <div class="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6"><%= test.title %></h1>
+
+        <form id="testForm" action="/test/<%= id %>/result" method="POST">
+            <% questions.forEach((question, index) => { %>
+                <div class="question" style="display: <%= index === 0 ? 'block' : 'none' %>;">
+                    <p class="font-semibold text-lg">
+                        <%= index + 1 %>. <%= question.question %> 
+                    </p>
+
+                    <label class="block my-2">
+                        <input type="radio" name="answer_<%= index %>" value="a">
+                        <%= question.options.a %>
+                    </label>
+                    <label class="block my-2">
+                        <input type="radio" name="answer_<%= index %>" value="b">
+                        <%= question.options.b %>
+                    </label>
+                    <label class="block my-2">
+                        <input type="radio" name="answer_<%= index %>" value="c">
+                        <%= question.options.c %>
+                    </label>
+                    <label class="block my-2">
+                        <input type="radio" name="answer_<%= index %>" value="d">
+                        <%= question.options.d %>
+                    </label>
+
+                    <div class="text-red-500 mt-2" id="warning_<%= index %>"></div>
+
+                    <div class="button-container mt-4">
+                        <% if (index > 0) { %>
+                            <button type="button" class="bg-gray-300 px-4 py-2 rounded" 
+                                onclick="showQuestion(<%= index - 1 %>);">
+                                Previous
+                            </button>
+                        <% } %>
+
+                        <% if (index < questions.length - 1) { %>
+                            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" 
+                                onclick="nextQuestion(<%= index %>);">
+                                Next
+                            </button>
+                        <% } else { %>
+                            <button type="button" class="bg-green-500 text-white px-4 py-2 rounded" 
+                                onclick="submitForm(<%= index %>);" id="submitBtn">
+                                Submit
+                            </button>
+                        <% } %>
+                    </div>
+                </div>
+            <% }) %>
+        </form>
+    </div>
+    </div>
+    </div>
+    <script>
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.question');
+            questions.forEach((question) => (question.style.display = 'none'));
+            questions[index].style.display = 'block';
+        }
+
+        function nextQuestion(currentIndex) {
+            if (isOptionSelected(currentIndex)) {
+                showQuestion(currentIndex + 1);
+                clearWarning(currentIndex);
+            } else {
+                displayWarning(currentIndex, "Please select an option before proceeding.");
+            }
+        }
+
+        function isOptionSelected(index) {
+            const options = document.querySelectorAll(`input[name="answer_${index}"]`);
+            return Array.from(options).some((option) => option.checked);
+        }
+
+        function displayWarning(index, message) {
+            document.getElementById(`warning_${index}`).textContent = message;
+        }
+
+        function clearWarning(index) {
+            document.getElementById(`warning_${index}`).textContent = '';
+        }
+
+        function submitForm(currentIndex) {
+            if (isOptionSelected(currentIndex)) {
+                document.getElementById('testForm').submit();
+            } else {
+                displayWarning(currentIndex, "Please select an option before submitting.");
+            }
+        }
+    </script>
+</body>
+</html>
