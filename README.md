@@ -68,3 +68,9 @@
 - **Vanshika Sharma** - [Vsharma176](https://github.com/Vsharma176)
 
 Thank you for your valuable contributions to this project!  
+
+## Citation
+
+If you use this project in your work, please cite it as follows:
+
+> Di Liu (2025). *DevFusion-iOS-Android*. GitHub. [https://github.com/dliu84/DevFusion-iOS-Android](https://github.com/dliu84/DevFusion-iOS-Android)
